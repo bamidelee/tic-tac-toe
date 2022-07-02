@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TIC TAC TOE</title>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@1,100;1,300&family=Rubik+Moonrocks&family=Satisfy&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="end none">end</div>
+    <div class="bg">
+        <h1>TIC TAC TOE</h1>
+        <button type="button" id="singleplayer" class="mode">single player</button>
+        <button type="button" id="multiplayer" class="mode">multi-player</button>
+        <div class="player1-info">
+            <label for="player1">PLAYER ONE</label>
+            <input type="text" class="player1">
+        </div>
+        <div class="player2-info">
+            <label for="player2">PLAYER TWO</label>
+            <input type="text" class="player2">
+        </div>
+        <button class="submit">SUBMIT</button>
+        
+        <div class="game">
+            <button class="restart">restart</button>
+            <h3 class="turn"></h3>
+            <div class="board">
+                <div class="tile" id="1"></div>
+                <div class="tile" id="2"></div>
+                <div class="tile" id="3"></div>
+                <div class="tile" id="4"></div>
+                <div class="tile" id="5"></div>
+                <div class="tile" id="6"></div>
+                <div class="tile" id="7"></div>
+                <div class="tile" id="8"></div>
+                <div class="tile" id="9"></div>
+        </div>  </div>
+    </div>
+    <script src="./script.js"></script>
+</body>
+</html>
