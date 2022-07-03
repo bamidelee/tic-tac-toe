@@ -10,6 +10,7 @@ const game = document.querySelector('.game');
 const end = document.querySelector('.end');
 const body = document.querySelector('.bg');
 const restart = document.querySelector('.restart')
+const endbg = document.querySelector('.endbg');
 let playerOne;
 let playerTwo;
 let gameMode= '';
@@ -75,14 +76,17 @@ tiles.forEach(tile => tile.addEventListener('click', (e) =>
     }
 }))
 
-end.addEventListener('click', (e) =>
-{
-    
-   body.style.opacity = '1';
-   end.classList.remove('endfade');
-  tiles.forEach(displayPlay);
-   
-})
+
+
+      endbg.addEventListener('click', (e) =>
+      {
+        end.classList.remove('endfade');                 
+        body.style.opacity = '1';
+        end.classList.remove('endfade');
+        tiles.forEach(displayPlay);
+        endbg.classList.remove('endfade'); 
+      });
+
 
 function playerTurn ()
 {
@@ -128,7 +132,7 @@ const gameBoard = (() =>
                                     board[winningPositions[j][0]] = player.character;
                                     gameOver();
                                     playerTurn();
-                                    
+                                    displayPlay();
                                     return
                                 }
                                 else if(board[winningPositions[j][1]] == '')
@@ -136,7 +140,7 @@ const gameBoard = (() =>
                                     board[winningPositions[j][1]] = player.character;
                                     gameOver();
                                     playerTurn();
-                                    
+                                    displayPlay();
                                     return
                                 }
                             else if(board[winningPositions[j][2]] == '')
@@ -144,7 +148,7 @@ const gameBoard = (() =>
                                     board[winningPositions[j][2]] = player.character;
                                     gameOver();
                                     playerTurn();
-                                    
+                                    displayPlay();
                                     return
                                 }
                             }
@@ -161,7 +165,7 @@ const gameBoard = (() =>
                             board[winningPositions[i][j]] = player.character;
                             gameOver();
                             playerTurn();
-                            
+                            displayPlay();
                             return
                         }
                 }
@@ -202,23 +206,34 @@ const gameBoard = (() =>
         {
             end.textContent =  `${player.name} WIN!!!`;
             body.style.opacity ='.3';
+            endbg.classList.add('endfade')
             end.classList.add('endfade');
             for(i = 0; i < board.length; i++)
             {
                 board[i] = '';
             }
+            tiles.forEach(tile =>
+                {
+                    tile.className = 'tile';
+                })
+                
+        
             
         }
         else if(draw())
         {
             end.textContent ='DRAW!!!';
             body.style.opacity ='.3';
-            end.classList.add('endfade');
+            end.classList.add('endfade')
+            endbg.classList.add('endfade');
             for(i = 0; i < board.length; i++)
             {
                 board[i] = '';
             }
-            
+            tiles.forEach(tile =>
+                {
+                    tile.className = 'tile';
+                });    
         }
       return;
     }
@@ -253,13 +268,15 @@ function displayPlay ()
     tiles.forEach(tile =>
         {
             tile.textContent = gameBoard.board[Number(tile.id)-1];
-            if (tile.textContent = gameBoard.board[Number(tile.id)-1])
+            if (tile.textContent == 'o')
             {
-                tile.classList.add('fader');
+                tile.className = 'tile fader';
             }
-            else{
-                tile.className ='tile';
+            else if (tile.textContent == 'x')
+            {
+                tile.className = 'tile opac';
+                
             }
-           
+            
         })
 }

@@ -54,9 +54,12 @@ h1{
 }
 
 .fader{
-    transition: all .5s ease-in;
+    transition: all 1s ease-in;
     opacity: 1;
  
+}
+.opac{
+    opacity: 1;
 }
 
 
@@ -90,6 +93,15 @@ button:hover{
     overflow: hidden;
     white-space: nowrap;
     
+}
+.endbg{
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    position: absolute;
+    width: 0;
+    z-index: 2;
 }
 .endfade{
     transition:width .5s cubic-bezier(0, 0.71, 1, 1);
