@@ -268,11 +268,11 @@ function displayPlay ()
     tiles.forEach(tile =>
         {
             tile.textContent = gameBoard.board[Number(tile.id)-1];
-            if (tile.textContent == 'o')
+            if (tile.textContent == 'o' && gameMode == 'singleplayer')
             {
                 tile.className = 'tile fader';
             }
-            else if (tile.textContent == 'x')
+            else if (tile.textContent)
             {
                 tile.className = 'tile opac';
                 
