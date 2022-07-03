@@ -62,14 +62,16 @@ submit.addEventListener('click', (e) =>
 const tiles = document.querySelectorAll('.tile');
 tiles.forEach(tile => tile.addEventListener('click', (e) =>
 {
+    e.stopPropagation;
+     
     if (gameBoard.board[Number(tile.id)-1] == '')
     {
+ 
     gameBoard.play(player.character, (tile.id));
     gameBoard.gameOver(player.name)
     playerTurn();
     gameBoard.compPlay();
     displayPlay();
-    console.log(gameBoard.board);
     }
 }))
 
@@ -77,7 +79,7 @@ end.addEventListener('click', (e) =>
 {
     
    body.style.opacity = '1';
-   end.className = 'end none';
+   end.classList.remove('endfade');
   tiles.forEach(displayPlay);
    
 })
@@ -106,20 +108,62 @@ const gameBoard = (() =>
         }
     }
     const winningPositions = [[0 , 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 5], [2, 5, 8], [0, 4, 8], [2, 4, 6], [1, 4, 7]];
-    const computerMove = [0,2,6,7, 5,4,1,3,8];
     const compPlay = () =>
     {
-        if(gameMode = 'singleplayer' && player == playerTwo)
+
+        if(gameMode == 'singleplayer' && player == playerTwo)
         {
             for(let i = 0; i < 9; i++)
             {
-                if(board[computerMove[i]] == '')
+                for (let j = 0; j < winningPositions.length; j++)
                 {
-                    board[computerMove[i]] = player.character;
-                    gameOver();
-                    playerTurn();
-                    
-                    return
+                    for (let k = 0; k < 3; k++)
+                    {
+                        if (board[i] !='' && winningPositions[j][k] == i)
+                        {
+                            if (  (board[winningPositions[j][0]] && board[winningPositions[j][1]] == board[i]) || (board[winningPositions[j][2]] && board[winningPositions[j][1]] == board[i]) || (board[winningPositions[j][0]] && board[winningPositions[j][2]] == board[i]))
+                            {
+                                if(board[winningPositions[j][0]] == '')
+                                {
+                                    board[winningPositions[j][0]] = player.character;
+                                    gameOver();
+                                    playerTurn();
+                                    
+                                    return
+                                }
+                                else if(board[winningPositions[j][1]] == '')
+                                {
+                                    board[winningPositions[j][1]] = player.character;
+                                    gameOver();
+                                    playerTurn();
+                                    
+                                    return
+                                }
+                            else if(board[winningPositions[j][2]] == '')
+                                {
+                                    board[winningPositions[j][2]] = player.character;
+                                    gameOver();
+                                    playerTurn();
+                                    
+                                    return
+                                }
+                            }
+                        }
+                    }
+                }  
+            }
+            for(let i = 0; i < winningPositions.length; i++)
+            {
+                for(let j = 0; i < 3; i++)
+                {
+                         if(board[winningPositions[i][j]] == '')
+                        {
+                            board[winningPositions[i][j]] = player.character;
+                            gameOver();
+                            playerTurn();
+                            
+                            return
+                        }
                 }
             }
         }
@@ -158,7 +202,7 @@ const gameBoard = (() =>
         {
             end.textContent =  `${player.name} WIN!!!`;
             body.style.opacity ='.3';
-            end.className = 'end fade-in'
+            end.classList.add('endfade');
             for(i = 0; i < board.length; i++)
             {
                 board[i] = '';
@@ -169,8 +213,7 @@ const gameBoard = (() =>
         {
             end.textContent ='DRAW!!!';
             body.style.opacity ='.3';
-            end.className = 'end fade-in'
-            board = ['', '', '', '', '', '', '', '', '']; 
+            end.classList.add('endfade');
             for(i = 0; i < board.length; i++)
             {
                 board[i] = '';
@@ -210,5 +253,13 @@ function displayPlay ()
     tiles.forEach(tile =>
         {
             tile.textContent = gameBoard.board[Number(tile.id)-1];
+            if (tile.textContent = gameBoard.board[Number(tile.id)-1])
+            {
+                tile.classList.add('fader');
+            }
+            else{
+                tile.className ='tile';
+            }
+           
         })
 }
